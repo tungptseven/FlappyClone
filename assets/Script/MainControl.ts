@@ -13,12 +13,30 @@ export default class MainControl extends cc.Component {
     @property(cc.Sprite)
     spBg: cc.Sprite[] = [null, null];
 
-    // LIFE-CYCLE CALLBACKS:
+    @property(cc.Prefab)
+    pipePrefab: cc.Prefab = null;
 
-    // onLoad () {}
+    pipe: cc.Node[] = [null, null, null]
 
+    onLoad() {
+        //open Collision System
+        var collisionManager = cc.director.getCollisionManager()
+        collisionManager.enabled = true
+        //open debug draw when you debug the game
+        //do not forget to close when you ship the game
+        collisionManager.enabledDebugDraw = true
+    }
+    
     start() {
+        for (let i = 0;i < this.pipe.length;i++) {
+            this.pipe[i] = cc.instantiate(this.pipePrefab)
+            this.node.addChild(this.pipe[i])
 
+            this.pipe[i].x = 170 + 200 * i
+            var minY = -120
+            var maxY = 120
+            this.pipe[i].y = minY + Math.random() * (maxY - minY)
+        }
     }
 
     update(dt) {
@@ -26,6 +44,17 @@ export default class MainControl extends cc.Component {
             this.spBg[i].node.x -= 1.0
             if (this.spBg[i].node.x <= -288) {
                 this.spBg[i].node.x = 288
+            }
+        }
+
+        for (let i = 0;i < this.pipe.length;i++) {
+            this.pipe[i].x -= 1.0
+            if (this.pipe[i].x <= -170) {
+                this.pipe[i].x = 430
+
+                var minY = -120
+                var maxY = 120
+                this.pipe[i].y = minY + Math.random() * (maxY - minY)
             }
         }
     }
