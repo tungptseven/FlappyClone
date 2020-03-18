@@ -9,6 +9,8 @@ const { ccclass, property } = cc._decorator
 
 @ccclass
 export default class MainControl extends cc.Component {
+    @property(cc.Sprite)
+    spGameOver: cc.Sprite = null
 
     @property(cc.Sprite)
     spBg: cc.Sprite[] = [null, null];
@@ -18,6 +20,10 @@ export default class MainControl extends cc.Component {
 
     pipe: cc.Node[] = [null, null, null]
 
+    gameOver() {
+        this.spGameOver.node.active = true
+    }
+
     onLoad() {
         //open Collision System
         var collisionManager = cc.director.getCollisionManager()
@@ -25,12 +31,14 @@ export default class MainControl extends cc.Component {
         //open debug draw when you debug the game
         //do not forget to close when you ship the game
         collisionManager.enabledDebugDraw = true
+        this.spGameOver = this.node.getChildByName('GameOver').getComponent(cc.Sprite)
+        this.spGameOver.node.active = false
     }
     
     start() {
         for (let i = 0;i < this.pipe.length;i++) {
             this.pipe[i] = cc.instantiate(this.pipePrefab)
-            this.node.addChild(this.pipe[i])
+            this.node.getChildByName('Pipe').addChild(this.pipe[i])
 
             this.pipe[i].x = 170 + 200 * i
             var minY = -120
