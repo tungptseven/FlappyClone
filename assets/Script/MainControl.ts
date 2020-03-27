@@ -7,9 +7,14 @@
 
 const { ccclass, property } = cc._decorator
 
+export enum GameStatus {
+    Game_Ready = 0,
+    Game_Playing,
+    Game_Over
+}
 @ccclass
 export default class MainControl extends cc.Component {
-    @property(cc.Sprite)
+    // @property(cc.Sprite)
     spGameOver: cc.Sprite = null
 
     @property(cc.Sprite)
@@ -20,8 +25,29 @@ export default class MainControl extends cc.Component {
 
     pipe: cc.Node[] = [null, null, null]
 
+    btnStart: cc.Button = null
+
+    gameStatus: GameStatus = GameStatus.Game_Ready
+
     gameOver() {
         this.spGameOver.node.active = true
+        this.btnStart.node.active = true
+        this.gameStatus = GameStatus.Game_Over
+    }
+
+    touchStartBtn() {
+        this.btnStart.node.active = false
+        this.gameStatus = GameStatus.Game_Playing
+        this.spGameOver.node.active = false
+        for (let i = 0;i < this.pipe.length;i++) {
+            this.pipe[i].x = 170 + 200 * i
+            var minY = -120
+            var maxY = 120
+            this.pipe[i].y = minY + Math.random() * (maxY - minY)
+        }
+        var bird = this.node.getChildByName('Bird')
+        bird.y = 0
+        bird.rotation = 0
     }
 
     onLoad() {
@@ -33,8 +59,10 @@ export default class MainControl extends cc.Component {
         collisionManager.enabledDebugDraw = true
         this.spGameOver = this.node.getChildByName('GameOver').getComponent(cc.Sprite)
         this.spGameOver.node.active = false
+        this.btnStart = this.node.getChildByName('BtnStart').getComponent(cc.Button)
+        this.btnStart.node.on(cc.Node.EventType.TOUCH_END, this.touchStartBtn, this)
     }
-    
+
     start() {
         for (let i = 0;i < this.pipe.length;i++) {
             this.pipe[i] = cc.instantiate(this.pipePrefab)
@@ -48,6 +76,10 @@ export default class MainControl extends cc.Component {
     }
 
     update(dt) {
+        if (this.gameStatus !== GameStatus.Game_Playing) {
+            return
+        }
+
         for (let i = 0;i < this.spBg.length;i++) {
             this.spBg[i].node.x -= 1.0
             if (this.spBg[i].node.x <= -288) {
