@@ -7,7 +7,7 @@
 
 import MainControl from "./MainControl"
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator
 
 @ccclass
 export default class NewClass extends cc.Component {
@@ -20,8 +20,14 @@ export default class NewClass extends cc.Component {
 
     onCollisionEnter(other: cc.Collider, self: cc.Collider) {
         //game over
-        cc.log("game over")
-        this.mainControl.gameOver()
+        if (other.tag === 0) {
+            cc.log("game over")
+            this.mainControl.gameOver()
+            this.speed = 0
+        } else if (other.tag === 1) {
+            this.mainControl.gameScore++
+            this.mainControl.labelScore.string = this.mainControl.gameScore.toString()
+        }
     }
 
     onLoad() {
@@ -36,12 +42,17 @@ export default class NewClass extends cc.Component {
     update(dt: number) {
         this.speed -= 0.05
         this.node.y += this.speed
-        
+
         var angle = -(this.speed / 2) * 30
         if (angle >= 30) {
             angle = 30
         }
-        this.node.angle = angle;
+        this.node.angle = angle
+
+        if (this.node.y >= 256 || this.node.y <= -256) {
+            this.mainControl.gameOver()
+            this.speed = 0
+        }
     }
 
     onTouchStart(event: cc.Event.EventTouch) {

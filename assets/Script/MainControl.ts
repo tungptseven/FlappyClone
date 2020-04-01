@@ -23,6 +23,11 @@ export default class MainControl extends cc.Component {
     @property(cc.Prefab)
     pipePrefab: cc.Prefab = null;
 
+    @property(cc.Label)
+    labelScore: cc.Label = null
+
+    gameScore: number = 0
+
     pipe: cc.Node[] = [null, null, null]
 
     btnStart: cc.Button = null
@@ -48,6 +53,9 @@ export default class MainControl extends cc.Component {
         var bird = this.node.getChildByName('Bird')
         bird.y = 0
         bird.rotation = 0
+
+        this.gameScore = 0
+        this.labelScore.string = this.gameScore.toString()
     }
 
     onLoad() {
