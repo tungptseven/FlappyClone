@@ -88,18 +88,21 @@
       },
       {
         "__id__": 23
+      },
+      {
+        "__id__": 25
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 25
-      },
-      {
-        "__id__": 26
-      },
-      {
         "__id__": 27
+      },
+      {
+        "__id__": 28
+      },
+      {
+        "__id__": 29
       }
     ],
     "_prefab": null,
@@ -189,7 +192,7 @@
       "array": [
         0,
         0,
-        439.9409051224949,
+        408.7639905862551,
         0,
         0,
         0,
@@ -1175,6 +1178,90 @@
     "_id": "170HTwPYZE7LQT1q2TP7Fr"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "AudioSource",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 26
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "9937eCKH1IBpKdHedJ4kjZ"
+  },
+  {
+    "__type__": "5c7b4GKy2pO5ZMf2AxRqX9Q",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 25
+    },
+    "_enabled": true,
+    "backgroundMusic": {
+      "__uuid__": "de7bad1a-824a-48fb-ad4b-a7b216030870"
+    },
+    "flySound": {
+      "__uuid__": "ab1bdfb7-9905-44a9-bcde-396148765d77"
+    },
+    "scoreSound": {
+      "__uuid__": "844d95e2-10ef-4cf7-84a4-8bacaba76ad3"
+    },
+    "dieSound": {
+      "__uuid__": "c2eff665-af40-4a1b-a9a9-9288295ada8a"
+    },
+    "_id": "78pWuYVxZEuKCPHftmWCax"
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 0,
@@ -1239,6 +1326,9 @@
     },
     "labelScore": {
       "__id__": 24
+    },
+    "audioSourceControl": {
+      "__id__": 26
     },
     "_id": "38nnLQVYVJ3Y1KbqZDeb2P"
   }

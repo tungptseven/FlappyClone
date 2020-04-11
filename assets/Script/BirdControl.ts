@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import MainControl from "./MainControl"
+import { SoundType } from "./AudioSourceControl"
 
 const { ccclass, property } = cc._decorator
 
@@ -24,6 +25,8 @@ export default class NewClass extends cc.Component {
             cc.log("game over")
             this.mainControl.gameOver()
             this.speed = 0
+            this.mainControl.audioSourceControl.playSound(SoundType.E_Sound_Fly)
+
         } else if (other.tag === 1) {
             this.mainControl.gameScore++
             this.mainControl.labelScore.string = this.mainControl.gameScore.toString()
@@ -57,5 +60,6 @@ export default class NewClass extends cc.Component {
 
     onTouchStart(event: cc.Event.EventTouch) {
         this.speed = 2
+        this.mainControl.audioSourceControl.playSound(SoundType.E_Sound_Fly)
     }
 }
